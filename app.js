@@ -25,7 +25,7 @@ app.get("*", function (_, res) {
     function (err) {
       res.status(500).send(err);
     }
-  );
+  );git
 });
 
 // MongoDB Connection
