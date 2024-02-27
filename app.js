@@ -15,8 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-
-// Code block to serve frontend from server : 
+// Code block to serve frontend from server :
 // (Replace client with your frontend folder name)
 
 app.use(express.static(path.join(__dirname, "./client/build")));
@@ -29,17 +28,12 @@ app.get("*", function (_, res) {
   );
 });
 
-
-
 // MongoDB Connection
 mongoose.connect(
-  "mongodb+srv://presi123:presi123@cluster0.dfo33ti.mongodb.net/PlacementDB?retryWrites=true&w=majority"
+  "mongodb+srv://testUser:presi123@cluster0.dfo33ti.mongodb.net/testDB?retryWrites=true&w=majority&appName=Cluster0"
 );
 
-
-
-
-  // Route for student login
+// Route for student login
 app.post("/studentLogin", async (req, res) => {
   try {
     var { email, password } = req.body;
@@ -65,14 +59,16 @@ app.post("/studentLogin", async (req, res) => {
   }
 });
 
-
 // Multer storage configuration
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./uploads"); // Destination folder for storing uploaded files
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname)); // File naming with original extension
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    ); // File naming with original extension
   },
 });
 
@@ -180,8 +176,6 @@ app.post("/adminLogin", async (req, res) => {
   }
 });
 
-
-
 // Calculate score for a single student based on criteria
 const calculateScore = (student) => {
   let score = 0;
@@ -255,8 +249,6 @@ app.post("/streamRanks", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
-
-
 
 //server
 app.listen(4000, () => {
